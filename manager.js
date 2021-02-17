@@ -5,12 +5,12 @@ var max_listing_perpage=5;
 var max_seat_perpage=20;
 var cur_max = max_listing_perpage;
 
-//this code has been tested 2/17/2021 4:23 result-> 404 not found on fetching.
+//this code has been tested 2/18/2021 0:03 result-> success.
 
 reload();
 
 function getRestaurant(storeid,indexing) {
-    fetch("http://158.108.182.7:3000/fronted/?store_id="+storeid, {
+    fetch("http://158.108.182.7:3001/frontend?store_id="+storeid, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
@@ -19,44 +19,42 @@ function getRestaurant(storeid,indexing) {
           return response.json()
         } else if(response.status === 404) {
             cur_max = indexing;
-            console.log("Store id "+indexing+" is not found.");
+            console.log("[1] Store id "+indexing+" is not found.");
           return Promise.reject('error 404')
         } else {
           return Promise.reject('some other error: ' + response.status)
         }
       })
-      .then((data) => {
-                if (!response.ok) {
-                    cur_max = indexing;
-                    console.log("Store id "+indexing+" is not found.");
-                }else{
-                console.log("Checking..");
-                console.log(data);
+      .then((datas) => {
+                console.log(">> requested store id "+storeid)
+                var data = datas["result"][0];
+
                 if(page_type == 0){
                     //get data for listing.
                     //filter (future update)
-                    if(data != null)
-                        showRestaurant(indexing,data.category,data.table,data.low,data.high,data.des,data.flr)
-                    else
-                        cur_max = indexing+1;
+                    if(data != undefined)
+                        showRestaurant(indexing,data.name,data.category,data.table,data.lowest_price,data.highest_price,data.description,data.floor)
+                    else{
+                        console.log("[no data] the store_id "+indexing+" is not found. Now max index is "+indexing);
+                        cur_max = indexing;
+                    }
                 }else if(page_type == 1){
                     //get data for inform the seat info.
-                    showRestaurant(indexing,data.category,data.table,data.low,data.high,data.des,data.flr)
+                    showRestaurant(indexing,data.name,data.category,data.table,data.lowest_price,data.highest_price,data.description,data.floor)
                 }
             }
-        }
       );
   }
-function showRestaurant(indexing,categ,table,low,high,des,flr){
+function showRestaurant(indexing,naMe,categ,table,low,high,des,flr){
     if(indexing == -1){ // create restaurant page as store data
         //show restaurant name
-        
+        console.log("Restaurant name is "+naMe);
         //show category
-
+        console.log("  -category: "+categ);
         //show floor data
-
+        console.log("  -floor "+flr);
         //show description data
-
+        console.log("  -descrtiption : "+des);
         //show table data
         var i=0;
         var base_i=page_num*max_seat_perpage;
@@ -68,30 +66,36 @@ function showRestaurant(indexing,categ,table,low,high,des,flr){
             i++;
         })
         //show low-high data
+        console.log("  -price range "+low+"-"+high);
 
     }else{ //show list element
         //set visibility of slot to true
 
         //show restaurant name
-        
+        console.log("Restaurant name is "+naMe);
         //show category
-
+        console.log("  -category: "+categ);
         //show floor data
-        
+        console.log("  -floor "+flr);
         //show # of available tables
         var avai_table = avaiTable(table);
-
+        console.log("  -num of available table "+avai_table);
         //set color by ความแออัด
         var total = totalSeat(table);
         var avai = avaiSeat(table);
-        var airPunch = avai/total;
-        if(airPunch < .2){
+        var airPunch = avai*100/total;
+        var color="";
+        if(airPunch < 20){
             //change color of slot # to red
-        }else if(airPunch < .5){
+            color = "red";
+        }else if(airPunch < 50){
             //change color of slot # to yellow
-        }else if(airPunch <= 1){
+            color = "yellow";
+        }else if(airPunch <= 100){
             //change color of slot # to green
+            color = "green";
         }
+        console.log("  -airPunch level : "+airPunch+" appear in "+color);
     }
 }
 function totalSeat(table){ //return number of available table
@@ -105,7 +109,7 @@ function totalSeat(table){ //return number of available table
 function avaiTable(table){
     var avai_table=0;
     table.forEach((tab) => {
-        if(status == false){ //if the seat is available (not occupied)
+        if(tab.status == true){ //if the seat is available
             avai_table++;
         }
     })
@@ -115,7 +119,7 @@ function avaiTable(table){
 function avaiSeat(table){
     var avai_seat=0;
     table.forEach((tab) => {
-        if(status == false){ //if the seat is available (not occupied)
+        if(tab.status == true){ //if the seat is available
             avai_seat += tab.number_of_seats;
         }
     })
@@ -124,7 +128,7 @@ function avaiSeat(table){
 
   function listRestaurant(){ //list out all restaurant
       var i;
-      for(i=1;i<cur_max+1;i++){
+      for(i=1;i<cur_max;i++){
           var lastStore = (page_num*max_listing_perpage)+i;
           getRestaurant(lastStore,i);
       }
@@ -147,6 +151,8 @@ function avaiSeat(table){
   function reload(){
       //reset the page element to default (turn of listing visiblity and wait for next update)
       //initial main
+      console.log("RELOAD");
+      cur_max =max_listing_perpage;
         if(page_type == 0){
         //list the restaurant
             listRestaurant();
@@ -157,6 +163,7 @@ function avaiSeat(table){
   }
 
   setInterval(() => {
+      console.log("------ fetching new data -----");
     if(page_type == 0){
         //list the restaurant
         listRestaurant();
