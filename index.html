@@ -1,90 +1,274 @@
 <!doctype html>
 <html>
+
 <head>
- <meta charset="utf-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <link rel="stylesheet" href="index.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="index.css" />
 </head>
 
 <body id=0>
- <div class="bg">
-  <section id="banner">
-   <div class="inner">
-    <h2>S E E &nbsp; S E A T S</h2>
-    <div class="buttons">
-       <div class="container">
-           <a href="#section2" class="btn effect04" data-sm-link-text="CLICK"><span>LEARN MORE</span></a>
-       </div>
+    <div class="bg">
+        <section id="banner">
+            <div class="inner">
+                <h2>S E E &nbsp; S E A T S</h2>
+                <div class="buttons">
+                    <div class="container">
+                        <a href="#section2" class="btn effect04" data-sm-link-text="CLICK"><span>LEARN MORE</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-   </div>
-  </section>
- </div>
- 
- <div id="section2" class="sec2">
-    <div id="navbar" class="topnav">
-        <i class="fa fa-bars" ></i>
-        <input type="text" placeholder="Search.."><i class="fa fa-search" style="float:right;"></i>
+
+    <div id="section2" class="sec2">
+        <div id="navbar" class="topnav">
+            <span style="font-size:30px; cursor:pointer; padding-left: 15px;" onclick="openNav()">&#9776;</span>
+            <input type="text" placeholder="Search.."><i class="fa fa-search" style="float:right;"></i>
+        </div>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <h1 class="type">Type of food</h1>
+            <a href="#">japanese</a>
+            <a href="#">italian</a>
+            <a href="#">korean</a>
+            <a href="#">fast food</a>
+            <a href="#">thai</a>
+            <a href="#">chinese</a>
+            <a href="#">others</a>
+            <a href="#">all</a>
+        </div>
+
+        <h1 class="floor">1F</h1>
+        <div class="floor">
+            <div class="card">
+                <img class="logo" src="assets/fuji.jpg" alt="Fuji">
+                <h1>Fuji</h1>
+                <p class="title"><span id="seatfuji">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="fuji.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/pizza.jpg" alt="Pizza Company">
+                <h1>The Pizza Company</h1>
+                <p class="title"><span id="pizza">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="pizza.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/santafe.png" alt="Santa Fe">
+                <h1>Santa Fe</h1>
+                <p class="title"><span id="santafe">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="santafe.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/mc.jpg" alt="Santa Fe">
+                <h1>McDodald's</h1>
+                <p class="title"><span id="mc">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="mc.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/subway.jpg" alt="Santa Fe">
+                <h1>Subway</h1>
+                <p class="title"><span id="subway">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="subway.html">P R O C E E D</a></button></p>
+            </div>
+        </div>
+
+        <h1 class="floor">2F</h1>
+        <div class="floor">
+            <div class="card">
+                <img class="logo" src="assets/fuji.jpg" alt="Fuji">
+                <h1>Fuji</h1>
+                <p class="title"><span id="seatfuji">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="fuji.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/pizza.jpg" alt="Pizza Company">
+                <h1>The Pizza Company</h1>
+                <p class="title"><span id="pizza">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="pizza.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/santafe.png" alt="Santa Fe">
+                <h1>Santa Fe</h1>
+                <p class="title"><span id="santafe">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="santafe.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/mc.jpg" alt="Santa Fe">
+                <h1>McDodald's</h1>
+                <p class="title"><span id="mc">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="mc.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/subway.jpg" alt="Santa Fe">
+                <h1>Subway</h1>
+                <p class="title"><span id="subway">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="subway.html">P R O C E E D</a></button></p>
+            </div>
+        </div>
+
+        <h1 class="floor">3F</h1>
+        <div class="floor">
+            <div class="card">
+                <img class="logo" src="assets/fuji.jpg" alt="Fuji">
+                <h1>Fuji</h1>
+                <p class="title"><span id="seatfuji">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="fuji.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/pizza.jpg" alt="Pizza Company">
+                <h1>The Pizza Company</h1>
+                <p class="title"><span id="pizza">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="pizza.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/santafe.png" alt="Santa Fe">
+                <h1>Santa Fe</h1>
+                <p class="title"><span id="santafe">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="santafe.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/mc.jpg" alt="Santa Fe">
+                <h1>McDodald's</h1>
+                <p class="title"><span id="mc">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="mc.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/subway.jpg" alt="Santa Fe">
+                <h1>Subway</h1>
+                <p class="title"><span id="subway">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="subway.html">P R O C E E D</a></button></p>
+            </div>
+        </div>
+
+        <h1 class="floor">4F</h1>
+        <div class="floor">
+            <div class="card">
+                <img class="logo" src="assets/fuji.jpg" alt="Fuji">
+                <h1>Fuji</h1>
+                <p class="title"><span id="seatfuji">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="fuji.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/pizza.jpg" alt="Pizza Company">
+                <h1>The Pizza Company</h1>
+                <p class="title"><span id="pizza">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="pizza.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/santafe.png" alt="Santa Fe">
+                <h1>Santa Fe</h1>
+                <p class="title"><span id="santafe">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="santafe.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/mc.jpg" alt="Santa Fe">
+                <h1>McDodald's</h1>
+                <p class="title"><span id="mc">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="mc.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/subway.jpg" alt="Santa Fe">
+                <h1>Subway</h1>
+                <p class="title"><span id="subway">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="subway.html">P R O C E E D</a></button></p>
+            </div>
+        </div>
+
+        <h1 class="floor">5F</h1>
+        <div class="floor">
+            <div class="card">
+                <img class="logo" src="assets/fuji.jpg" alt="Fuji">
+                <h1>Fuji</h1>
+                <p class="title"><span id="seatfuji">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="fuji.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/pizza.jpg" alt="Pizza Company">
+                <h1>The Pizza Company</h1>
+                <p class="title"><span id="pizza">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="pizza.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/santafe.png" alt="Santa Fe">
+                <h1>Santa Fe</h1>
+                <p class="title"><span id="santafe">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="santafe.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/mc.jpg" alt="Santa Fe">
+                <h1>McDodald's</h1>
+                <p class="title"><span id="mc">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="mc.html">P R O C E E D</a></button></p>
+            </div>
+            <div class="card">
+                <img class="logo" src="assets/subway.jpg" alt="Santa Fe">
+                <h1>Subway</h1>
+                <p class="title"><span id="subway">3</span> seats</p>
+                <p>Available</p>
+                <p><button class="proceed"><a href="subway.html">P R O C E E D</a></button></p>
+            </div>
+        </div>
     </div>
-  
-  <div class="card">
-    <img class="logo" src="assets/fuji.jpg" alt="Fuji">
-    <h1>Fuji</h1>
-    <p class="title"><span id="seatfuji">3</span> seats</p>
-    <p>Available</p>
-    <p><button class="proceed"><a href="fuji.html">P R O C E E D</a></button></p>
-  </div>
-	 
-  <div class="card">
-    <img class="logo" src="assets/pizza.jpg" alt="Pizza Company">
-    <h1>The Pizza Company</h1>
-    <p class="title"><span id="pizza">3</span> seats</p>
-    <p>Available</p>
-    <p><button class="proceed"><a href="pizza.html">P R O C E E D</a></button></p>
-  </div>
-	 
-   <div class="card">
-    <img class="logo" src="assets/santafe.png" alt="Santa Fe">
-    <h1>Santa Fe</h1>
-    <p class="title"><span id="santafe">3</span> seats</p>
-    <p>Available</p>
-    <p><button class="proceed"><a href="santafe.html">P R O C E E D</a></button></p>
-  </div>
-  
-   <div class="card">
-    <img class="logo" src="assets/mc.jpg" alt="Santa Fe">
-    <h1>McDodald's</h1>
-    <p class="title"><span id="mc">3</span> seats</p>
-    <p>Available</p>
-    <p><button class="proceed"><a href="mc.html">P R O C E E D</a></button></p>
-  </div>
-	 
-   <div class="card">
-    <img class="logo" src="assets/subway.jpg" alt="Santa Fe">
-    <h1>Subway</h1>
-    <p class="title"><span id="subway">3</span> seats</p>
-    <p>Available</p>
-    <p><button class="proceed"><a href="subway.html">P R O C E E D</a></button></p>
-  </div>
- </div>
- <script>
-     window.onscroll = function() {myFunction()};
 
-    // Get the navbar
-    var navbar = document.getElementById("navbar");
+    <script>
+        window.onscroll = function () { myFunction() };
 
-    // Get the offset position of the navbar
-    var sticky = navbar.offsetTop;
+        // Get the navbar
+        var navbar = document.getElementById("navbar");
 
-    // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-    function myFunction() {
-    if (window.pageYOffset >= sticky) {
-        navbar.classList.add("sticky")
-    } else {
-        navbar.classList.remove("sticky");
-    }
-    }
- </script>
- <script src="manager.js"></script>
+        // Get the offset position of the navbar
+        var sticky = navbar.offsetTop;
+
+        // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        function myFunction() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+            }
+            else {
+                navbar.classList.remove("sticky");
+            }
+        }
+
+        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "230px";
+        }
+
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+    </script>
+
+    <script src="manager.js"></script>
 </body>
+
 </html>

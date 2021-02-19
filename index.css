@@ -12,6 +12,10 @@ body, html {
 	scroll-behavior: smooth;
 }
 
+.type {
+	color: #FFF;
+	margin-top: 0;
+}
 .bg {
 	background-image: url("assets/banner.png");
   	height: 100%; 
@@ -71,7 +75,6 @@ body, html {
 
 .card {
   display: inline-block;
-  margin-top: 250px;
   margin-left: 3.3%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
@@ -271,6 +274,61 @@ button:hover, a:hover {
 
   input {
 	border-radius: 5px;
+  }
+
+  .sidenav {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+	text-align: center;
+  }
+  
+  .sidenav a {
+	padding: 8px 8px 8px 8px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+	color: #f1f1f1;
+	border-bottom: #FFF;
+  }
+  
+  .sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+  }
+  
+  div.floor {
+	overflow: auto;
+	white-space: nowrap;
+	padding: 30px 0px 30px 30px;
+
+	background: rgba(196, 196, 196, 0.29);
+  }
+
+  h1.floor {
+	  margin-top: 60px;
+	  margin-left: 20px;
+	  font-weight: bold;
+  }
+  
+  @media screen and (max-height: 450px) {
+	.sidenav {padding-top: 15px;}
+	.sidenav a {font-size: 18px;}
   }
   
   /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
