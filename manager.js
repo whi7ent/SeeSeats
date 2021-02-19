@@ -7,7 +7,7 @@ var selected_categ = 0; //0 for all, 1 for jpn, 2 for ita
 var cur_max = max_listing_perpage;
 var now_category = "";
 
-//this code has been tested 2/19/2021 1:13 result-> success.
+//this code has been tested 2/20/2021 6:39 result-> success.
 
 initData();
 
