@@ -364,6 +364,11 @@ h1.floor {
     .topnav input[type=text] {
         border: 1px solid #ccc;
     }
+	
+	.logo {
+    	width: 200px;
+    	height: 200px;
+	}
 }
 
 .sticky {
@@ -429,6 +434,11 @@ button.tablinks.active {
         height: 300px;
         perspective: 1000px;
     }
+	
+	.logo {
+    	width: 200px;
+    	height: 200px;
+	}
 }
 
 @media screen and (max-width:850px){
@@ -438,6 +448,11 @@ button.tablinks.active {
 	
 	.header h2{
 		font-size: 70px;
+	}
+	
+	.logo {
+    	width: 200px;
+    	height: 200px;
 	}
 }
 
@@ -460,6 +475,11 @@ button.tablinks.active {
 	.header h2{
 		font-size: 60px;
 	}
+	
+	.logo {
+    	width: 200px;
+    	height: 200px;
+	}
 }
 
 @media screen and (max-width:620px) {
@@ -469,6 +489,10 @@ button.tablinks.active {
 	
 	.header h2{
 		font-size: 50px;
+	}
+	.logo {
+    	width: 200px;
+    	height: 200px;
 	}
 }
 
@@ -480,6 +504,10 @@ button.tablinks.active {
 	.header h2{
 		font-size: 45px;
 	}
+	.logo {
+    	width: 200px;
+    	height: 200px;
+	}
 }
 
 @media screen and (max-width:460px) {
@@ -490,10 +518,18 @@ button.tablinks.active {
 	.header h2{
 		font-size: 35px;
 	}
+	.logo {
+    	width: 200px;
+    	height: 200px;
+	}
 }
 
 @media screen and (max-width:370px) {
     .inner h2 {
         font-size: 30px;
     }
+	.logo {
+    	width: 200px;
+    	height: 200px;
+	}
 }
