@@ -435,6 +435,10 @@ button.tablinks.active {
 	.inner h2{
 		font-size: 60px;
 	}
+	
+	.header h2{
+		font-size: 70px;
+	}
 }
 
 @media screen and (max-width:750px) {
@@ -452,10 +456,18 @@ button.tablinks.active {
         height: 300px;
         perspective: 1000px;
     }
+	
+	.header h2{
+		font-size: 60px;
+	}
 }
 
 @media screen and (max-width:620px) {
 	.inner h2{
+		font-size: 50px;
+	}
+	
+	.header h2{
 		font-size: 50px;
 	}
 }
@@ -464,12 +476,20 @@ button.tablinks.active {
     .inner h2 {
         font-size: 45px;
     }
+	
+	.header h2{
+		font-size: 45px;
+	}
 }
 
 @media screen and (max-width:460px) {
     .inner h2 {
         font-size: 35px;
     }
+	
+	.header h2{
+		font-size: 35px;
+	}
 }
 
 @media screen and (max-width:370px) {
