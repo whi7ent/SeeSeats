@@ -88,6 +88,7 @@ function getRestaurantByFilters(floor, category,command) {
                             showRestaurant(data.store_id, data.name, data.category, data.table,data.floor)
                         else if(command == 1)
                             updateRestaurant(data.store_id,data.table)
+                        console.log(data);
                     }
                 })
             } else {
@@ -349,8 +350,16 @@ function calCategory(categ) {
     } else if (categ == 'ita') {
         cat_txt = "Italian";
     } else if (categ == 'tha') {
-        cat_txt = "Thau";
-    } else {
+        cat_txt = "Thai";
+    } else if (categ == 'kor') {
+        cat_txt = "Korean";
+    } else if (categ == 'fas') {
+        cat_txt = "Fast";
+    }else if (categ == 'chi') {
+        cat_txt = "Chinese";
+    }else if (categ == 'oth') {
+        cat_txt = "Other";
+    }    else {
         cat_txt = categ;
     } return cat_txt;
 }
