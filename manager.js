@@ -1,4 +1,4 @@
-var page_type = 0; //0 for main, 1 for restaurant data page.
+var page_type = 0; //0 for main, 1 for restaurant data page, 2 for searching
 var page_num = 0; //0 default : number of pages.
 var selected_res; //number of selected restaurant (store id)
 var max_listing_perpage = 5;
@@ -6,8 +6,9 @@ var max_seat_perpage = 20;
 var selected_categ = 0; //0 for all, 1 for jpn, 2 for ita 
 var cur_max = max_listing_perpage;
 var now_category = "";
+var now_name = "";
 
-//this code has been tested 2/20/2021 6:39 result-> success.
+//this code has been tested 2/21/2021 3:05 result-> success.
 
 initData();
 
@@ -25,7 +26,7 @@ function initData() {
 }
 
 
-function getRestaurant(storeid,command) {
+function getRestaurant(storeid, command) {
     fetch("http://158.108.182.7:3001/frontend?store_id=" + storeid, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -45,9 +46,9 @@ function getRestaurant(storeid,command) {
             var data = datas["result"][0];
             if (data != undefined)
                 //get data for inform the seat info.
-                if(command == 0){
+                if (command == 0) {
                     showStoreData(data.name, data.category, data.table, data.lowest_price, data.highest_price, data.description, data.floor)
-                }else{
+                } else {
                     updateTableData(data.table);
                 }
             else {
@@ -57,7 +58,46 @@ function getRestaurant(storeid,command) {
         );
 }
 
-function getRestaurantByFilters(floor, category,command) {
+function searchRestaurant(storename, command) {
+    fetch("http://158.108.182.7:3001/frontend?store_name=" + storename, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            } else if (response.status === 404) {
+                console.log("Load store data failed : Store name " + storename + " is not found.");
+                return Promise.reject('error 404')
+            } else {
+                return Promise.reject('some other error: ' + response.status)
+            }
+        })
+        .then((datas) => {
+            console.log(">> requested store name " + storename)
+            var data = datas["result"][0];
+            console.log(data);
+            if (data != undefined) {
+                //get data for inform the seat info.
+                if (command == 0)
+                    showRestaurant(data.store_id, data.name, data.category, data.table, data.floor)
+                else if (command == 1)
+                    updateRestaurant(data.store_id, data.table)
+            }
+            else {
+                console.log("[no data] the store_name " + storename + " is not found.");
+            }
+            //clean data
+            var i;
+            for(i=1;i<6;i++){
+                cleanFloorData(i);
+            }
+            cleanFloorData('b');
+        }
+        );
+}
+
+function getRestaurantByFilters(floor, category, command) {
     //command 0 for get store data, 1 for update data
     var filters = "";
     if (floor != -1) {
@@ -83,12 +123,12 @@ function getRestaurantByFilters(floor, category,command) {
         .then((datas) => {
             if (datas["result"][0] != null) {
                 datas["result"].forEach((data) => {
-                    if (data != undefined){
-                        if(command == 0)
-                            showRestaurant(data.store_id, data.name, data.category, data.table,data.floor)
-                        else if(command == 1)
-                            updateRestaurant(data.store_id,data.table)
-                        console.log(data);
+                    if (data != undefined) {
+                        if (command == 0)
+                            showRestaurant(data.store_id, data.name, data.category, data.table, data.floor)
+                        else if (command == 1)
+                            updateRestaurant(data.store_id, data.table)
+                        //  console.log(data);
                     }
                 })
             } else {
@@ -98,8 +138,8 @@ function getRestaurantByFilters(floor, category,command) {
         }
         );
 }
-function updateRestaurant(id,table){
-    console.log("Restaurant id "+id+" is updated.");
+function updateRestaurant(id, table) {
+    console.log("Restaurant id " + id + " is updated.");
     var avai_table = avaiTable(table);
     document.getElementById("seat_" + id).innerHTML = avai_table + " available tables";
     //set color by ความแออัด
@@ -117,14 +157,14 @@ function updateRestaurant(id,table){
         document.getElementById("butt_" + id).style.backgroundColor = 'mediumseagreen';
     }
 }
-function updateTableData(table){
+function updateTableData(table) {
     console.log("Table update");
     table.forEach((tab) => {
-        var butt = document.getElementById("status_"+tab.table_id);
-        if(tab.status == true){
+        var butt = document.getElementById("status_" + tab.table_id);
+        if (tab.status == true) {
             butt.style.backgroundColor = "mediumseagreen";
             butt.innerHTML = "A V A I L A B L E";
-        }else{
+        } else {
             butt.style.backgroundColor = "crimson";
             butt.innerHTML = " O C C U P I E D ";
         }
@@ -157,33 +197,34 @@ function showRestaurant(id, naMe, categ, table, floor) {
     }
 }
 function selectnewCateg(code) {
+    page_type = 0;
     if (code == "all") {
         now_category = "";
     } else {
         now_category = code;
     }
-    console.log("Load new category : "+code);
+    console.log("Load new category : " + code);
     loadStore();
     closeNav();
 }
 
-function createTable(tableid,maxseat,status){
+function createTable(tableid, maxseat, status) {
     var sec2 = document.getElementById("Table");
 
     var card = document.createElement('div');
     card.className = "card";
 
-  /*  var imgA = document.createElement('img');
-    imgA.src = "assets/fuji.jpg";
-    imgA.className = 'logo';
-    card.appendChild(imgA);*/
+    /*  var imgA = document.createElement('img');
+      imgA.src = "assets/fuji.jpg";
+      imgA.className = 'logo';
+      card.appendChild(imgA);*/
 
     var h1 = document.createElement('h1');
     h1.innerHTML = maxseat + " Seats";
     card.appendChild(h1);
 
     var p2 = document.createElement('p');
-   // para2.id = 'categ_' + id;
+    // para2.id = 'categ_' + id;
 
     var butt = document.createElement("button");
     var p3 = document.createElement('p');
@@ -191,12 +232,12 @@ function createTable(tableid,maxseat,status){
     butt.id = 'status_' + tableid;
 
     p2.className = "title";
-    p2.innerHTML = "Table no."+tableid;
+    p2.innerHTML = "Table no." + tableid;
 
-    if(status == true){
+    if (status == true) {
         butt.style.backgroundColor = "mediumseagreen";
         butt.innerHTML = "A V A I L A B L E";
-    }else{
+    } else {
         butt.style.backgroundColor = "crimson";
         butt.innerHTML = " O C C U P I E D ";
     }
@@ -208,23 +249,23 @@ function createTable(tableid,maxseat,status){
     sec2.appendChild(card);
 }
 
-function findFloorformat(flr){
-    if(flr == 'b'){
+function findFloorformat(flr) {
+    if (flr == 'b') {
         return "Basement";
     }
-    if(flr == '1'){
+    if (flr == '1') {
         return "1st";
     }
-    if(flr == '2'){
+    if (flr == '2') {
         return "2nd";
     }
-    if(flr == '3'){
+    if (flr == '3') {
         return "3rd";
     }
-    if(flr == '4'){
+    if (flr == '4') {
         return "4th";
     }
-    if(flr == '5'){
+    if (flr == '5') {
         return "5th";
     }
 }
@@ -248,7 +289,7 @@ function showStoreData(naMe, categ, table, low, high, des, flr) {
     console.log("=== Tables data ========");
     table.forEach((tab) => {
         //do change to seat {base_i+i}
-        createTable(tab.table_id,tab.number_of_seats,tab.status);
+        createTable(tab.table_id, tab.number_of_seats, tab.status);
         console.log("[id " + tab.table_id + ".max of " + tab.number_of_seats + ". IsAvailable " + tab.status + "]");
         i++;
     })
@@ -284,9 +325,9 @@ function avaiSeat(table) {
 function listRestaurant(A) { //list out all restaurant A 0 for store, A 1 for update
     var i;
     for (i = 1; i < 6; i++) { //floor 1 to 5
-        getRestaurantByFilters(i, now_category,A);
+        getRestaurantByFilters(i, now_category, A);
     }
-    getRestaurantByFilters("b",now_category,A);
+    getRestaurantByFilters("b", now_category, A);
     //getRestaurantByFilters(-1,now_category);
 }
 
@@ -304,7 +345,7 @@ function createStore(storeName, id, categ, floor) {
     card.className = "card";
 
     var imgA = document.createElement('img');
-    imgA.src = "assets/"+id+".jpg";
+    imgA.src = "assets/" + id + ".jpg";
     imgA.className = 'logo';
     card.appendChild(imgA);
 
@@ -355,11 +396,11 @@ function calCategory(categ) {
         cat_txt = "Korean";
     } else if (categ == 'fas') {
         cat_txt = "Fast";
-    }else if (categ == 'chi') {
+    } else if (categ == 'chi') {
         cat_txt = "Chinese";
-    }else if (categ == 'oth') {
+    } else if (categ == 'oth') {
         cat_txt = "Other";
-    }    else {
+    } else {
         cat_txt = categ;
     } return cat_txt;
 }
@@ -373,17 +414,18 @@ function backToList() { //on lick -> back to main list menu
 }
 
 function clearElements() {
-    if (page_type == 0) {
+    console.log("Clear data");
+    if (page_type == 0 || page_type == 2) {
         var f;
         var myNode = document.getElementById("F_b");
-        if(myNode != null){
+        if (myNode != null) {
             while (myNode.firstChild) {
                 myNode.removeChild(myNode.lastChild);
             }
         }
         for (f = 1; f < 6; f++) {
             var myNode = document.getElementById("F_" + f);
-            if(myNode != null){
+            if (myNode != null) {
                 while (myNode.firstChild) {
                     myNode.removeChild(myNode.lastChild);
                 }
@@ -396,32 +438,41 @@ function clearElements() {
         }
     }
 }
+function search() {
+    //set now_name
+    now_name = document.getElementById("s_name").value;
+    console.log("Search :" + now_name);
+    page_type = 2;
+    loadStore();
+}
 
 function loadStore() {
     //reset the page element to default (turn of listing visiblity and wait for next update)
     //initial main
     console.log("RELOAD");
-    cur_max = max_listing_perpage;
     if (page_type == 0) {
         //list the restaurant
         listRestaurant(0);
         clearElements();
     } else if (page_type == 1) {
         //get data for inform the seat info.
-        getRestaurant(selected_res,0);
+        getRestaurant(selected_res, 0);
+    } else if (page_type == 2) {
+        clearElements();
+        searchRestaurant(now_name, 0);
     }
 }
-function cleanFloorData(f){
-        var myNode = document.getElementById("F_" + f);
-        if(myNode != null){
+function cleanFloorData(f) {
+    var myNode = document.getElementById("F_" + f);
+    if (myNode != null) {
         if (!myNode.firstChild) {
-            var myNodetxt = document.getElementById("F" + f+"_text");
-            myNodetxt.style.display="none";
-            myNode.style.display="none";
-        }else{
-            var myNodetxt = document.getElementById("F" + f+"_text");
-            myNodetxt.style.display="block";
-            myNode.style.display="block";
+            var myNodetxt = document.getElementById("F" + f + "_text");
+            myNodetxt.style.display = "none";
+            myNode.style.display = "none";
+        } else {
+            var myNodetxt = document.getElementById("F" + f + "_text");
+            myNodetxt.style.display = "block";
+            myNode.style.display = "block";
         }
     }
 }
@@ -433,6 +484,8 @@ setInterval(() => {
         listRestaurant(1);
     } else if (page_type == 1) {
         //get data for inform the seat info.
-        getRestaurant(selected_res,1);
+        getRestaurant(selected_res, 1);
+    } else if (page_type == 2) {
+        searchRestaurant(now_name, 1);
     }
 }, 5000); //5s interval
