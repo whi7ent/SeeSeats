@@ -26,12 +26,12 @@
     <div id="section2" class="sec2">
         <div id="navbar" class="topnav">
             <span style="font-size:30px; cursor:pointer; padding-left: 15px;" onclick="openNav()">&#9776;</span>
-            <input type="text" placeholder="Search.."><i class="fa fa-search" style="float:right;"></i>
+            <input type="text" placeholder="Search.." id="s_name"><i class="fa fa-search" style="float:right;" onclick="search()"></i>
         </div>
 
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <h1 class="type">Type of food</h1>
+            <h1 class="type">Category</h1>
             <a onclick="selectnewCateg('jpn')">japanese</a>
             <a onclick="selectnewCateg('ita')">italian</a>
             <a onclick="selectnewCateg('kor')">korean</a>
